@@ -1,0 +1,46 @@
+
+function Clear()
+    term.clear()
+    term.setCursorPos(1,1)
+end
+
+print("[IMPORTANT]: what side of the computer is the wireless modem on? ('left','right','back','top','front')")
+wrapper = read()
+print("[IMPORTANT]: what do you want your username to be?")
+Usr = read()
+modem = peripheral.wrap(wrapper)
+rednet.open(wrapper)
+
+if not modem then
+    error("[FAILURE]: Invalid Side.")
+else
+    print("[SUCCESS]: Side Correct, Continueing.")
+    sleep(0.5)
+    Clear()
+end
+
+Message = "<"+Usr+">: "
+Id = math.random
+Msginput = "> "+read()
+
+function setchatrm()
+    modem.closeAll()
+    print("chat room name.")
+    Cname = read()
+    modem.open(Chatrmid)
+    if modem.open(Chatrmid) then
+        Interface(Ca)
+        Ca = true
+    else
+        Ca = false
+    end
+end
+--scans for messages broadcasted, and sends messages of its own.
+function Interface(Ca)
+    Clear()
+    rednet.send(Message+"Connection Acheived",Cname)
+    while rednet.receive(Cname) do
+        message = print(">",read())
+        rednet.send(message,Cname)
+    end
+end
